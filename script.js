@@ -1,6 +1,5 @@
-// Assignment Code
+
 var generateBtn = document.querySelector("#generate");
-var enterLength;
 
 var enterNumeric;
 Numeric = [1,2,3,4,5,6,7,8,9];
@@ -13,20 +12,23 @@ Uppercase = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q"
 
 var enterSpecial; 
 Special =  ["!", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", "\:", "\;", " < ", "=", " > ", " ? ", "@", "[", "\\", "]", " ^ ", "_", "`", "{", "|", "}", "~"];
-
+// use for the prompt when asking how long the password should be
+var inputLength;
+// choices the user makes
 var input;
-// Write password to the #password input
+
 function writePassword() {
-  enterLength = parseInt(prompt("How longs would you like your password? Between 8 and 128 Please."));
-
-  if (enterLength <= 8 || enterLength >= 128);
-
+  inputLength = parseInt(prompt("How longs would you like your password? Between 8 and 128 Please."));
+// 8-128
+  if (inputLength <= 8 || inputLength >= 129);
+// prompts for the 4 var
 else {
 enterNumeric = confirm("Will this contain numerics?");
 enterLetters = confirm("Will this contain lower case letters");
 enterUppercase = confirm("Will this contain upper case letters");
 enterSpecial = confirm("Will this contain special letters");
 };
+// use all the combinations a user can make
 if (enterNumeric && enterLetters && enterUppercase && enterSpecial){
   input = Numeric.concat(Letters, Uppercase, Special);
 }
@@ -59,33 +61,24 @@ else if (enterLetters && enterUppercase) {
 
 } else if (enterUppercase && enterSpecial) {
   input = Uppercase.concat(Special);
-}   
-else if (enterNumeric) {
-  input = Numeric;
+}; 
+// array var here don't forget
+var inputPassword = [];
+// loop for the random selector
+for (var i = 0; i < inputLength; i++)
+{var Inputs = input[Math.floor(Math.random() * input.length)];
+inputPassword.push(Inputs);
 }
-else if (enterLetters) {
-  input = Letters;
-}
-else if (enterUppercase) {
-  input = Uppercase;
-}
-else if (enterSpecial) {
-  input = Special;
-}
+// important for the input to show on text box
+var asset = inputPassword.join("");
 
+UserInput(asset);
 
-
-
-
-var password = writePassword();
-var passwordText = document.querySelector("#password");
-passwordText.value = password;
-
+return asset;
 
 }
-
-
-
-
-// Add event listener to generate button
+function UserInput(asset) {
+  document.getElementById("password").textContent = asset;
+}
+// add event already here don't mess with
 generateBtn.addEventListener("click", writePassword);
